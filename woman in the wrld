@@ -1,0 +1,15 @@
+import requests
+
+# Fetch the latest population data
+url = "https://population.un.org/wpp/Download/Standard/Population/"
+response = requests.get(url)
+data = response.json()
+
+# Extract the total population and gender ratio
+total_population = data["data"]["Population"]["World"]["Both"]["Total"]
+gender_ratio = data["data"]["Population"]["World"]["Both"]["Male"] / data["data"]["Population"]["World"]["Both"]["Female"]
+
+# Calculate the number of girls
+num_girls = int(total_population / (1 + gender_ratio))
+
+print(f"The estimated number of girls in the world is {num_girls}.")
